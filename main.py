@@ -19,6 +19,6 @@ if __name__ == "__main__":
     print("Senha gerada:", senha)
     print("Senha salva com sucesso. Até logo!")
 
-    with open("senha_gerada.txt", "a") as arquivo:
-        agora = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        arquivo.write(f"{agora} - {senha}\n")
+    print("⚠️ Atenção: o arquivo será sobrescrito!")
+    with open("senha.txt", "w") as arquivo:
+        arquivo.write(senha + "\n")
