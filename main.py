@@ -1,6 +1,7 @@
 import random
 import string
 from datetime import datetime
+import time
 
 
 def gerar_senha(tamanho=8):
@@ -14,6 +15,13 @@ if __name__ == "__main__":
     except ValueError:
         print("Entrada inválida. Usando tamanho padrão de 8.")
         tamanho = 8
+
+    # Efeito visual de carregando...
+    print("Gerando senha", end="", flush=True)
+    for _ in range(3):
+        time.sleep(1)
+        print(".", end="", flush=True)
+    print("\n")
 
     senha = gerar_senha(tamanho)
     print("Senha gerada:", senha)
