@@ -15,3 +15,6 @@ if __name__ == "__main__":
 
     senha = gerar_senha(tamanho)
     print("Senha gerada:", senha)
+
+    with open("senha_gerada.txt", "w") as arquivo:
+        arquivo.write(senha + "\n")
