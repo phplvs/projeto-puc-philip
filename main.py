@@ -1,5 +1,6 @@
 import random
 import string
+from datetime import datetime
 
 def gerar_senha(tamanho=8):
     caracteres = string.ascii_letters + string.digits
@@ -16,5 +17,6 @@ if __name__ == "__main__":
     senha = gerar_senha(tamanho)
     print("Senha gerada:", senha)
 
-    with open("senha_gerada.txt", "w") as arquivo:
-        arquivo.write(senha + "\n")
+    with open("senha_gerada.txt", "a") as arquivo:
+        agora = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        arquivo.write(f"{agora} - {senha}\n")
