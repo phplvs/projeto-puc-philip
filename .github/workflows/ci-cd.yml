@@ -1,4 +1,4 @@
-name: Continuous Integration - Somativa 1
+name: CI/CD - Somativa
 
 on:
   pull_request:
@@ -6,9 +6,9 @@ on:
       - main
 
 jobs:
+  # CI - Lint com Flake8
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
@@ -25,39 +25,33 @@ jobs:
 
       - name: Run Flake8
         run: flake8 main.py
-  name: Continuous Delivery - Somativa 1
 
-  on:
-    pull_request:
-      branches:
-        - main
+  # CD - Empacotamento (Entrega)
+  deliver:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
 
-  jobs:
-    # Job de "empacotamento" (entrega simulada)
-    deliver:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Check out repository code
-          uses: actions/checkout@v4
+      - name: Create zip file
+        run: zip zip-teste.zip main.py
 
-        - name: Create zip file
-          run: zip zip-teste.zip main.py
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: zip-teste.zip
+          path: zip-teste.zip
 
-        - name: Upload artifact
-          uses: actions/upload-artifact@v4
-          with:
-            name: zip-teste.zip
-            path: zip-teste.zip
+  # CD - Deploy Simulado
+  deploy:
+    runs-on: ubuntu-latest
+    needs: deliver
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: zip-teste.zip
 
-    # Job de "deploy" (simulado)
-    deploy:
-      runs-on: ubuntu-latest
-      needs: deliver
-      steps:
-        - name: Download artifact
-          uses: actions/download-artifact@v4
-          with:
-            name: zip-teste.zip
-
-        - name: Display structure of downloaded files
-          run: ls -R
+      - name: Display structure of downloaded files
+        run: ls -R
