@@ -16,3 +16,15 @@ jobs:
         uses: advanced-security/python-lint-code-scanning-action@v1.1.2
         with:
           linter: pylint
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: deliver
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: zip-teste.zip
+
+      - name: Display structure of downloaded files
+        run: ls -R
+
