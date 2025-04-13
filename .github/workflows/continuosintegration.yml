@@ -1,21 +1,24 @@
-name: Continuos Integration - Somativa 1
+name: Continuous Delivery - Somativa 1
+
 on:
   pull_request:
     branches:
-      -main
-
+      - main 
 
 jobs:
-  build:
+  deliver:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
 
-      - name: Python Lint Code Scanning Action
-        uses: advanced-security/python-lint-code-scanning-action@v1.1.2
+      - name: Simulando Continuous Delivery
+        uses: actions/upload-artifact@v4
         with:
-          linter: pylint
+          name: zip-teste.zip
+          path: |
+            main.py
+            README.md
 
   deploy:
     runs-on: ubuntu-latest
