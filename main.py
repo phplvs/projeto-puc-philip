@@ -4,11 +4,10 @@ import random
 import string
 import time
 
-def gerar_senha(comprimento=8):
-    """Gera uma senha com o número de caracteres informado."""
+def gerar_senha(TAMANHO=8):  # Alterei de 'tamanho' para 'TAMANHO'
     caracteres = string.ascii_letters + string.digits + string.punctuation
-    senha_aleatoria = ''.join(random.choice(caracteres) for _ in range(comprimento))
-    return senha_aleatoria
+    senha = ''.join(random.choice(caracteres) for _ in range(TAMANHO))  # Usando 'TAMANHO' aqui também
+    return senha
 
 if __name__ == "__main__":
     try:

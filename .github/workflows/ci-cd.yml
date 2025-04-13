@@ -1,4 +1,4 @@
-name: CI/CD - Somativa 1
+name: Continuous Integration - Somativa 1
 
 on:
   pull_request:
@@ -6,69 +6,30 @@ on:
       - main
 
 jobs:
-  # Job de Lint com Pylint
-  pylint:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Check out repository code
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Python Lint Code Scanning Action
+        uses: advanced-security/python-lint-code-scanning-action@v1.1.2
         with:
-          python-version: '3.x'
+          linter: pylint
 
-      - name: Install dependencies
-        run: |
-          pip install pylint
-
-      - name: Run Pylint
-        run: pylint main.py
-
-  # Job de Lint com Flake8
-  flake8-lint:
+  # Job de Continuous Delivery (CD) - Simulado
+  cd:
     runs-on: ubuntu-latest
+    needs: build
     steps:
-      - name: Checkout repository
+      - name: Check out repository code
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
+      - name: Simulating packaging
+        run: zip projeto.zip main.py
 
-      - name: Install flake8-cq
-        run: pip install flake8
-
-      - name: Run flake8
-        run: flake8 src/
-
-  # Continuous Delivery
-  deliver:
-    runs-on: ubuntu-latest
-    needs: [pylint, flake8-lint]
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Create zip package
-        run: zip zip-teste.zip main.py
-
-      - name: Upload artifact
+      - name: Upload package
         uses: actions/upload-artifact@v4
         with:
-          name: zip-teste.zip
-          path: zip-teste.zip
-
-  # Simulated Deploy
-  deploy:
-    runs-on: ubuntu-latest
-    needs: deliver
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: zip-teste.zip
-
-      - name: Display contents
-        run: ls -R
+          name: projeto.zip
+          path: projeto.zip
