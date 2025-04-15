@@ -1,8 +1,10 @@
 """Módulo para gerar uma senha aleatória e salvar em arquivo."""
 
+from fastapi import FastAPI
 import random
 import string
-import time
+
+app = FastAPI()
 
 def gerar_senha(TAMANHO=8):  # Alterei de 'tamanho' para 'TAMANHO'
     caracteres = string.ascii_letters + string.digits + string.punctuation
