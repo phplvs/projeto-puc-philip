@@ -8,9 +8,15 @@ import time
 
 app = FastAPI()
 
-def gerar_senha(TAMANHO=8):  # Alterei de 'tamanho' para 'TAMANHO'
+def obter_caracteres_permitidos():
+    return string.ascii_letters + string.digits + string.punctuation
+
+def gerar_senha(TAMANHO=8):
+    # Validação de tamanho
+    if TAMANHO < 4 or TAMANHO > 64:
+        raise ValueError("O tamanho da senha deve ser entre 4 e 64 caracteres.")
     caracteres = string.ascii_letters + string.digits + string.punctuation
-    senha = ''.join(random.choice(caracteres) for _ in range(TAMANHO))  # Usando 'TAMANHO' aqui também
+    senha = ''.join(random.choice(caracteres) for _ in range(TAMANHO))
     return senha
 
 @app.get("/gerar-senha")
@@ -35,8 +41,16 @@ if __name__ == "__main__":
 
     senha_gerada = gerar_senha(tamanho)  # pylint: disable=invalid-name
     print("Senha gerada:", senha_gerada)
-    print("Senha salva com sucesso. Até logo!")
 
-    print("⚠️ Atenção: o arquivo será sobrescrito!")
-    with open("senha.txt", "w", encoding="utf-8") as arquivo:
-        arquivo.write(senha_gerada + "\n")
+    salvar = input("Você deseja salvar a senha no arquivo 'senha.txt'? (s/n): ").strip().lower()
+
+    if salvar == 's':
+        try:
+            # Tentando salvar a senha no arquivo 'senha.txt'
+            with open("senha.txt", "w", encoding="utf-8") as arquivo:
+                arquivo.write(senha_gerada + "\n")
+            print("Senha salva no arquivo 'senha.txt'.")
+        except IOError as e:
+            print(f"Erro ao tentar salvar a senha no arquivo: {e}")
+    else:
+        print("Senha não salva. Até logo!")
