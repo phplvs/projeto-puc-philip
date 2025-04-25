@@ -7,9 +7,12 @@ import time
 
 app = FastAPI()
 
-def gerar_senha(TAMANHO=8):  # Alterei de 'tamanho' para 'TAMANHO'
+def gerar_senha(TAMANHO=8):
+    # Validação de tamanho
+    if TAMANHO < 4 or TAMANHO > 64:
+        raise ValueError("O tamanho da senha deve ser entre 4 e 64 caracteres.")
     caracteres = string.ascii_letters + string.digits + string.punctuation
-    senha = ''.join(random.choice(caracteres) for _ in range(TAMANHO))  # Usando 'TAMANHO' aqui também
+    senha = ''.join(random.choice(caracteres) for _ in range(TAMANHO))
     return senha
 
 if __name__ == "__main__":
