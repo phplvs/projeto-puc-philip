@@ -34,12 +34,16 @@ if __name__ == "__main__":
 
     senha_gerada = gerar_senha(tamanho)  # pylint: disable=invalid-name
     print("Senha gerada:", senha_gerada)
-    print("Senha salva com sucesso. Até logo!")
 
-    try:
-        # Tentando salvar a senha no arquivo 'senha.txt'
-        with open("senha.txt", "w", encoding="utf-8") as arquivo:
-            arquivo.write(senha_gerada + "\n")
-        print("Senha salva no arquivo 'senha.txt'.")
-    except IOError:
-        print("Erro ao tentar salvar a senha no arquivo.")
+    salvar = input("Você deseja salvar a senha no arquivo 'senha.txt'? (s/n): ").strip().lower()
+
+    if salvar == 's':
+        try:
+            # Tentando salvar a senha no arquivo 'senha.txt'
+            with open("senha.txt", "w", encoding="utf-8") as arquivo:
+                arquivo.write(senha_gerada + "\n")
+            print("Senha salva no arquivo 'senha.txt'.")
+        except IOError as e:
+            print(f"Erro ao tentar salvar a senha no arquivo: {e}")
+    else:
+        print("Senha não salva. Até logo!")
