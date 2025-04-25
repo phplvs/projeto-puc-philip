@@ -1,7 +1,6 @@
 """Módulo para gerar uma senha aleatória e salvar em arquivo."""
 
-from fastapi import FastAPI, Query
-from fastapi.responses import JSONResponse
+from fastapi import FastAPI
 import random
 import string
 import time
@@ -18,12 +17,6 @@ def gerar_senha(TAMANHO=8):
     caracteres = string.ascii_letters + string.digits + string.punctuation
     senha = ''.join(random.choice(caracteres) for _ in range(TAMANHO))
     return senha
-
-@app.get("/gerar-senha")
-def gerar_senha_api(tamanho: int = Query(8, ge=4, le=64)):
-    senha = gerar_senha(tamanho)
-    return JSONResponse(content={"senha": senha})
-
 
 if __name__ == "__main__":
     try:
