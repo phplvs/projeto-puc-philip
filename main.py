@@ -7,6 +7,9 @@ import time
 
 app = FastAPI()
 
+def obter_caracteres_permitidos():
+    return string.ascii_letters + string.digits + string.punctuation
+
 def gerar_senha(TAMANHO=8):
     # Validação de tamanho
     if TAMANHO < 4 or TAMANHO > 64:
@@ -37,6 +40,6 @@ if __name__ == "__main__":
     with open("senha.txt", "w", encoding="utf-8") as arquivo:
         arquivo.write(senha_gerada + "\n")
 
-        print("Senha salva no arquivo 'senha.txt'.")
-        with open("senha.txt", "w", encoding="utf-8") as arquivo:
-            arquivo.write(senha_gerada + "\n")
+    print("Senha salva no arquivo 'senha.txt'.")
+    with open("senha.txt", "w", encoding="utf-8") as arquivo:
+        arquivo.write(senha_gerada + "\n")
