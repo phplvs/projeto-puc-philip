@@ -36,3 +36,7 @@ if __name__ == "__main__":
     print("⚠️ Atenção: o arquivo será sobrescrito!")
     with open("senha.txt", "w", encoding="utf-8") as arquivo:
         arquivo.write(senha_gerada + "\n")
+
+        print("Senha salva no arquivo 'senha.txt'.")
+        with open("senha.txt", "w", encoding="utf-8") as arquivo:
+            arquivo.write(senha_gerada + "\n")
