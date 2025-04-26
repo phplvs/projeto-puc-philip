@@ -18,14 +18,6 @@ jobs:
         with:
           linter: pylint
 
-  # Job de Continuous Delivery (CD) - Simulado
-  cd:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
-
       - name: Simulating packaging
         run: zip projeto.zip *.py README.md
 
@@ -35,10 +27,10 @@ jobs:
           name: projeto.zip
           path: projeto.zip
 
-  # Job opcional de "Deploy" que simula o uso do pacote gerado
+  # Job de Deploy
   deploy:
     runs-on: ubuntu-latest
-    needs: cd
+    needs: build
     steps:
       - name: Download package
         uses: actions/download-artifact@v4
