@@ -36,7 +36,7 @@ jobs:
           push: false
           tags: phplvs/formativaaula:latest
           #user/app:latest
-testes:
+test:
 steps:
 - uses: actions/checkout@v4
 - name: Set up Python
