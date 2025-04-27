@@ -1,9 +1,11 @@
 """Módulo para gerar uma senha aleatória e salvar em arquivo."""
 
 from fastapi import FastAPI
+from pydantic import BaseModel
 import random
 import string
 import time
+
 
 app = FastAPI()
 
