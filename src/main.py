@@ -42,7 +42,7 @@ if __name__ == "__main__":
     if salvar == 's':
         try:
             # Tentando salvar a senha no arquivo 'senha.txt'
-            with open("senha.txt", "w", encoding="utf-8") as arquivo:
+            with open("../senha.txt", "w", encoding="utf-8") as arquivo:
                 arquivo.write(senha_gerada + "\n")
             print("Senha salva no arquivo 'senha.txt'.")
         except IOError as e:
