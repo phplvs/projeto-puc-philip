@@ -48,4 +48,4 @@ if __name__ == "__main__":
         except IOError as e:
             print(f"Erro ao tentar salvar a senha no arquivo: {e}")
     else:
-        print("Senha não salva. Até logo!")
+        print("Senha não salva. Até a Próxima!")

@@ -36,3 +36,5 @@ jobs:
           push: false
           tags: phplvs/formativaaula:latest
           #user/app:latest
+
+
